@@ -1,3 +1,4 @@
+import os
 from pydantic_settings import BaseSettings
 from pydantic import Field
 
@@ -20,8 +21,8 @@ class Settings(BaseSettings):
     app_name: str = Field(default="Todo App")
     app_version: str = Field(default="1.0.0")
     app_host: str = Field(default="0.0.0.0")
-    app_port: int = Field(default=8000)
-    debug: bool = Field(default=True)
+    app_port: int = Field(default=int(os.getenv("PORT", 8000)))
+    debug: bool = Field(default=False)
     
     class Config:
         env_file = ".env"
