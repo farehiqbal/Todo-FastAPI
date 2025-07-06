@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+sqlalchemy
+alembic
+asyncpg
+psycopg2-binary
+greenlet
+pydantic
+pydantic[email]
+python-multipart
+python-dotenv
+python-jose[cryptography]
+pydantic-settings
