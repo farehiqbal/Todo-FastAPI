@@ -28,3 +28,8 @@ coverage.xml
 *.swp
 *.swo
 *~
+# Docker files (not needed for Render)
+Dockerfile
+docker-compose.yml
+docker-entrypoint.sh
+.dockerignore

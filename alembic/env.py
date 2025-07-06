@@ -16,7 +16,14 @@ config = context.config
 
 # Set the database URL from environment
 from infrastructure.config.settings import settings
-config.set_main_option("sqlalchemy.url", settings.database_url.replace("+asyncpg", ""))
+
+# Handle different database URL formats (asyncpg vs psycopg2)
+database_url = settings.database_url
+if database_url.startswith("postgresql+asyncpg://"):
+    # For migrations, use psycopg2 (synchronous)
+    database_url = database_url.replace("+asyncpg", "")
+
+config.set_main_option("sqlalchemy.url", database_url)
 
 # Interpret the config file for Python logging
 if config.config_file_name is not None:

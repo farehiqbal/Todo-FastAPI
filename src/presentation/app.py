@@ -40,7 +40,14 @@ def create_app() -> FastAPI:
     
     @app.get("/health")
     async def health_check():
-        return {"status": "healthy"}
+        try:
+            # Try to import database connection to verify it's working
+            from src.infrastructure.database.connection import engine
+            async with engine.begin() as conn:
+                await conn.execute("SELECT 1")
+            return {"status": "healthy", "database": "connected"}
+        except Exception as e:
+            return {"status": "unhealthy", "database": "disconnected", "error": str(e)}
     
     return app
 
